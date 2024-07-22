@@ -4,6 +4,7 @@ from fpdf import FPDF
 # Import the function to retrieve a collection from the database
 from database import get_collection
 
+
 @click.command()
 @click.argument('collection_id', type=int)
 @click.argument('output_file', type=click.Path(writable=True))
@@ -30,6 +31,7 @@ def checklist(collection_id, output_file, pdf):
     except Exception as e:
         click.echo(f"An error occurred: {e}")
 
+
 def generate_markdown_checklist(collection):
     """
     Generate a markdown checklist for a given collection.
@@ -46,12 +48,14 @@ def generate_markdown_checklist(collection):
         checklist += "\n"
     return checklist
 
+
 def pad_string(s, width):
     """
     Pad a string with spaces to a specified width.
     Useful for aligning text in markdown or other text outputs.
     """
     return s + ' ' * (width - len(s))
+
 
 def generate_pdf_checklist(collection, output_file):
     """
@@ -62,7 +66,7 @@ def generate_pdf_checklist(collection, output_file):
     pdf.add_page()
     pdf.add_font('DejaVu', '', 'DejaVuSans.ttf', uni=True)
     pdf.set_font('DejaVu', size=12)
-    #pdf.set_font("Arial", size=12)
+    # pdf.set_font("Arial", size=12)
     # Add the collection name and description at the top of the PDF page
     pdf.set_font('DejaVu', size=18)
     pdf.cell(200, 10, txt=f"{collection.name}", ln=1)
@@ -78,6 +82,7 @@ def generate_pdf_checklist(collection, output_file):
 
     # Save the generated PDF to the specified file
     pdf.output(output_file)
+
 
 if __name__ == "__main__":
     # Execute the command line interface setup by the click library
