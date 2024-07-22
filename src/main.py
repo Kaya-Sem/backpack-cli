@@ -4,7 +4,7 @@ import click
 import rich
 from rich.console import Console
 
-from item import print_items
+from item import print_items, print_item_view
 from collection import print_collections, print_collection_view
 from database import (
     get_items,
@@ -227,9 +227,7 @@ def item(id):
 
     try:
         item = get_item(id)
-        print(
-            f"Item ID: {item.id}, Name: {item.name}, Weight: {item.weight}, Category: {item.category}"
-        )
+        print_item_view(item)
     except ValueError as e:
         click.echo(str(e))
 
@@ -241,7 +239,7 @@ def delete():
     """Delete items and collections."""
     pass
 
-
+#  TODO: use print items instead
 @delete.command()
 @click.argument("id", required=False, type=int)
 def item(id):
