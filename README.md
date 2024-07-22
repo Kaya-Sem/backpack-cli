@@ -42,8 +42,11 @@ view: View details of a collection or item.
 checklist: Export a collection as a markdown checklist.
 
     backpack checklist --collection [id]
+    backpack checklist --collection [id] --pdf
 
 ## IMPORT
+
+    Import from CSV
 
 Feature under development.
 
@@ -51,8 +54,6 @@ Feature under development.
 
 Features under development include:
 
-    Export to PDF
-    Export to Markdown
     Export to CSV
 
 ⚠️ Note
