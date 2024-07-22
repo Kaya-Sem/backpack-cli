@@ -326,3 +326,16 @@ def handle_interactive_remove():
         return
 
     remove_items_from_collection(collection_id, item_ids)
+
+
+# Retrieve how many collections an item is in.
+def get_item_collection_count(item_id: int) -> int:
+    conn = Connection(DATABASE)
+    conn.cursor.execute(
+        "SELECT COUNT(*) FROM collection_items WHERE item_id = ?", (item_id,)
+    )
+
+    count = conn.cursor.fetchone()[0]
+    conn.close()
+
+    return count
