@@ -10,13 +10,12 @@ from database import get_collections, get_collection, get_items, get_item
 @click.group()
 def view():
     """View items and collections."""
-    pass
 
 
 @view.command()
-@click.argument("id", required=False, type=int)
-def collection(id):
-    if id is None:
+@click.argument("collection_id", required=False, type=int)
+def collection(collection_id):
+    if collection_id is None:
         collections = get_collections()
         if collections:
             rich.print(f"\nAvailable collections [dim]({len(collections)})[/dim]:\n")
@@ -24,10 +23,10 @@ def collection(id):
         else:
             click.echo("No collections found in the database")
 
-        id = click.prompt("Enter the ID of the collection you want to view", type=int)
+        collection_id = click.prompt("Enter the ID of the collection you want to view", type=int)
 
     try:
-        col: Collection = get_collection(id)
+        col: Collection = get_collection(collection_id)
         print_collection_view(col)
     except ValueError as e:
         click.echo(str(e))

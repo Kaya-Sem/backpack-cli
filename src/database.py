@@ -232,7 +232,7 @@ def add_items_to_collection(collection_id: int, item_ids: List[int]):
 def delete_item(item_id: int):
     conn = Connection(DATABASE)
 
-    #  TODO: items should not be removed, rather 'archived'
+    #  TODO[#13]: items should not be removed, rather 'archived'
     # remove item from collections
     conn.cursor.execute(
         "DELETE FROM collection_items WHERE item_id = ?", (item_id,)

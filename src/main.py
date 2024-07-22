@@ -1,12 +1,12 @@
 import click
 
-from commands.add import add
-from commands.checklist import checklist
-from commands.list import list
-from commands.remove import remove
-from commands.view import view
-from commands.create import create
-from commands.delete import delete
+from command.add import add
+from command.checklist import checklist
+from command.list import list
+from command.remove import remove
+from command.view import view
+from command.create import create
+from command.delete import delete
 
 
 @click.group()
@@ -14,7 +14,7 @@ def cli():
     pass
 
 
-# Register commands from commands directory
+# Register command from command directory
 cli.add_command(checklist)
 cli.add_command(add)
 cli.add_command(remove)

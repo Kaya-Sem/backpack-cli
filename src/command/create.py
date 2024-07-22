@@ -6,7 +6,6 @@ from database import create_item, create_collection
 @click.group()
 def create():
     """Create items and collections."""
-    pass
 
 
 #  TODO: named arguments

@@ -4,4 +4,4 @@ src/build
 src/build/**
 src/dist
 src/dist/**
-src/commands/**
+src/command/**

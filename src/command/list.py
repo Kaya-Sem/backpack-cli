@@ -8,7 +8,6 @@ from item import print_items
 @click.group()
 def list():
     """List items, collections and categories"""
-    pass
 
 
 @list.command()

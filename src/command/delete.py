@@ -7,14 +7,13 @@ from database import get_items, delete_item, get_collections, delete_collection
 @click.group()
 def delete():
     """Delete items and collections."""
-    pass
 
 
 #  TODO: use print items instead
 @delete.command()
-@click.argument("id", required=False, type=int)
-def item(id):
-    if id is None:
+@click.argument("item_id", required=False, type=int)
+def item(item_id):
+    if item_id is None:
         items = get_items()
         if items:
             print(f"{len(items)} available items:")
@@ -24,18 +23,18 @@ def item(id):
             print("No items found in the database.")
             sys.exit()
 
-        id = click.prompt("Enter the ID of the item you want to delete", type=int)
+        item_id = click.prompt("Enter the ID of the item you want to delete", type=int)
 
     try:
-        delete_item(id)
+        delete_item(item_id)
     except ValueError as e:
         click.echo(str(e))
 
 
 @delete.command()
-@click.argument("id", required=False, type=int)
-def collection(id):
-    if id is None:
+@click.argument("collection_id", required=False, type=int)
+def collection(collection_id):
+    if collection_id is None:
         collections = get_collections()
         if collections:
             print(f"{len(collections)} available collections:")
@@ -45,10 +44,10 @@ def collection(id):
             print("\nNo collections found in the database.\n")
             sys.exit()
 
-        id = click.prompt("Enter the ID of the collection you want to delete", type=int)
+        collection_id = click.prompt("Enter the ID of the collection you want to delete", type=int)
 
     try:
-        delete_collection(id)
-        rich.print(f"\n[green]Collection with ID {id} was succesfully removed[/green]\n")
+        delete_collection(collection_id)
+        rich.print(f"\n[green]Collection with ID {collection_id} was succesfully removed[/green]\n")
     except ValueError as e:
         click.echo(str(e))
