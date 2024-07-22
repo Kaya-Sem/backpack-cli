@@ -1,7 +1,7 @@
 import click
 import rich
 import sys
-from ..database import get_items, delete_item, get_collections, delete_collection
+from database import get_items, delete_item, get_collections, delete_collection
 
 
 @click.group()
