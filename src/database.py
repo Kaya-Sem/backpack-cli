@@ -3,14 +3,25 @@ from typing import List, Dict
 from collection import print_collections, Collection
 from item import print_items, Item
 import click
-
+from config import get_database_path
 import rich
 
-DATABASE = "backpack_cli.db"
+
+class Connection:
+    def __init__(self, database=get_database_path()):
+        self.connection = sqlite3.connect(database)
+        self.cursor = self.connection.cursor()
+
+    def close(self):
+        self.cursor.close()
+        self.connection.close()
+
+    def commit(self):
+        self.connection.commit()
 
 
 def get_items() -> List[Item]:
-    conn = Connection(DATABASE)
+    conn = Connection()
     conn.cursor.execute("SELECT id, name, weight, note, category FROM items")
     items = []
 
@@ -24,7 +35,7 @@ def get_items() -> List[Item]:
 
 
 def get_item(item_id: int) -> Item:
-    conn = Connection(DATABASE)
+    conn = Connection()
     conn.cursor.execute(
         "SELECT id, name, weight, note, category FROM items where id= ?",
         (item_id,),
@@ -42,7 +53,7 @@ def get_item(item_id: int) -> Item:
 
 
 def get_collection(id: int) -> Collection:
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     conn.cursor.execute(
         "SELECT id, name, description FROM collections WHERE id = ?",
@@ -60,7 +71,7 @@ def get_collection(id: int) -> Collection:
 
 
 def get_collections() -> List[Collection]:
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     # Get all collections
     conn.cursor.execute("SELECT id, name, description FROM collections")
@@ -80,7 +91,7 @@ def get_collections() -> List[Collection]:
 
 
 def create_collection(name: str, description: str) -> int:
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     conn.cursor.execute(
         "INSERT INTO collections (name, description) VALUES (?, ?)", (name, description)
@@ -95,7 +106,7 @@ def create_collection(name: str, description: str) -> int:
 
 
 def get_collection_items(id):
-    conn = Connection(DATABASE)
+    conn = Connection()
     conn.cursor.execute(
         """
         SELECT i.id, i.name, i.weight, i.note, i.category
@@ -122,7 +133,7 @@ def get_collection_items(id):
 
 # creates item in database and returns it generated id.
 def create_item(name: str, weight: int, category: str, note: str) -> int:
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     conn.cursor.execute(
         "INSERT INTO items (name, weight, category, note) VALUES (?, ?, ?, ?)",
@@ -138,7 +149,7 @@ def create_item(name: str, weight: int, category: str, note: str) -> int:
 
 
 def get_collection_items_as_list(collection_id: int) -> List[Item]:
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     conn.cursor.execute(
         """
@@ -159,7 +170,7 @@ def get_collection_items_as_list(collection_id: int) -> List[Item]:
 
 
 def remove_items_from_collection(collection_id: int, item_ids: List[int]):
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     removed_count = 0
     skipped_count = 0
@@ -197,7 +208,7 @@ def add_items_to_collection(collection_id: int, item_ids: List[int]):
         print("Error!")
         raise Exception
 
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     added_count = 0
     skipped_count = 0
@@ -230,7 +241,7 @@ def add_items_to_collection(collection_id: int, item_ids: List[int]):
 
 
 def delete_item(item_id: int):
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     #  TODO[#13]: items should not be removed, rather 'archived'
     # remove item from collections
@@ -249,7 +260,7 @@ def delete_item(item_id: int):
 
 
 def delete_collection(collection_id: int):
-    conn = Connection(DATABASE)
+    conn = Connection()
 
     # remove items from collection
     conn.cursor.execute(
@@ -265,7 +276,7 @@ def delete_collection(collection_id: int):
 
 
 def get_categories() -> List[str]:
-    conn = Connection(DATABASE)
+    conn = Connection()
     conn.cursor.execute("SELECT DISTINCT category FROM items")
     categories = [row[0] for row in conn.cursor.fetchall()]
     conn.close()
@@ -330,7 +341,7 @@ def handle_interactive_remove():
 
 # Retrieve how many collections an item is in.
 def get_item_collection_count(item_id: int) -> int:
-    conn = Connection(DATABASE)
+    conn = Connection()
     conn.cursor.execute(
         "SELECT COUNT(*) FROM collection_items WHERE item_id = ?", (item_id,)
     )
@@ -339,16 +350,3 @@ def get_item_collection_count(item_id: int) -> int:
     conn.close()
 
     return count
-
-
-class Connection:
-    def __init__(self, database: str):
-        self.connection = sqlite3.connect(database)
-        self.cursor = self.connection.cursor()
-
-    def close(self):
-        self.cursor.close()
-        self.connection.close()
-
-    def commit(self):
-        self.connection.commit()
