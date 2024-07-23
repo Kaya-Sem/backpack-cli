@@ -1,5 +1,4 @@
 from typing import List, Dict
-from dataobjects import Collection
 import rich
 
 import term_piechart  # https://github.com/va-h/term-piechart
@@ -25,8 +24,6 @@ def generate_chart(data: List[dict]):
 
 
 def print_collection_view(collection):
-
-
     rich.print(f"\n≡ [bold]{collection.name}[/bold]")
     rich.print(f"  [italic]{collection.description}[/italic]\n")
 
@@ -50,6 +47,27 @@ def print_collection_items(items):
         weight = f"[blue]{formatted_weight}[/blue]"
 
         rich.print(f"{name} {note} {weight}")
+
+
+class Collection:
+    def __init__(
+            self,
+            id,
+            name,
+            desc,
+            items
+    ):
+        self.id = id
+        self.name = name
+        self.description = desc
+        self.items = items
+
+    def get_category_weights(self) -> Dict[str, float]:
+        return {category: sum(item.weight for item in item_list) for category, item_list in self.items.items()}
+
+    def get_total_weight(self) -> int:
+        return sum(sum(item.weight for item in item_list) for _, item_list in
+                   self.items.items())
 
 
 def print_collections(collections: List[Collection]):

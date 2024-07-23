@@ -1,6 +1,8 @@
 import unittest
 import sqlite3
-from dataobjects import Collection, Item, Connection
+from collection import Collection
+from database import Connection
+from item import Item
 
 
 class TestItem(unittest.TestCase):

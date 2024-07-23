@@ -1,10 +1,10 @@
+import sqlite3
 from typing import List, Dict
-from collection import print_collections
-from item import print_items
+from collection import print_collections, Collection
+from item import print_items, Item
 import click
 
 import rich
-from dataobjects import Item, Collection, Connection
 
 DATABASE = "backpack_cli.db"
 
@@ -339,3 +339,16 @@ def get_item_collection_count(item_id: int) -> int:
     conn.close()
 
     return count
+
+
+class Connection:
+    def __init__(self, database: str):
+        self.connection = sqlite3.connect(database)
+        self.cursor = self.connection.cursor()
+
+    def close(self):
+        self.cursor.close()
+        self.connection.close()
+
+    def commit(self):
+        self.connection.commit()

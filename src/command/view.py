@@ -1,7 +1,6 @@
 import click
 import rich
-from dataobjects import Collection
-from collection import print_collections, print_collection_view
+from collection import print_collections, print_collection_view, Collection
 from item import print_items, print_item_view
 import sys
 from database import get_collections, get_collection, get_items, get_item
