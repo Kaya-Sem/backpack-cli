@@ -10,6 +10,8 @@ I am not providing any binaries as of yet. Please download the repository and us
 
 ## USAGE
 
+Whenever you run the program, it will look for the database at `XDG_CONFIG_HOME/backpack-cli/`. It will be created if it is not found.
+
 With backpack-cli, you can easily interact with your database using the following commands:
 
 list: Display a list of your collections, items, or categories.
