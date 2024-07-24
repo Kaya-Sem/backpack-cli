@@ -14,37 +14,9 @@ Whenever you run the program, it will look for the database at `XDG_CONFIG_HOME/
 
 With backpack-cli, you can easily interact with your database using the following commands:
 
-list: Display a list of your collections, items, or categories.
+For detailed usage, refer to [Command Line Usage](https://github.com/Kaya-Sem/backpack-cli/wiki/Command-Line-Usage)
 
 
-    backpack list [collections | items | categories]
-
-add: Add items to a collection.
-
-
-    backpack add item 1 2 --collection 4
-
-remove: Remove items from a collection.
-
-    backpack remove item 4 5 --collection 6
-
-create: Create a new collection or item.
-
-    backpack create [collection | item]
-
-delete: Delete an existing collection or item.
-
-    backpack delete [collection | item]
-
-view: View details of a collection or item.
-
-
-    backpack view [collection | item]
-
-checklist: Export a collection as a markdown checklist.
-
-    backpack checklist --collection [id]
-    backpack checklist --collection [id] --pdf
 
 ## IMPORT
 
