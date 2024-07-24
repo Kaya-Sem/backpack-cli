@@ -20,9 +20,13 @@ For detailed usage, refer to [Command Line Usage](https://github.com/Kaya-Sem/ba
 
 ## IMPORT
 
-    Import from CSV
+To import a csv list from Lighterpack, you can use the command `backpack import-lighterpack [path/to/file]`. This command will do the following:
 
-Feature under development.
+1. Parse all items and create them in the database
+2. create a collection named after the filename
+3. add all the items to the collection
+
+⚠️ There is no checking for duplicates. You either have to remove them yourself from the spreadsheet, or delete them later on with the program itself.
 
 ## EXPORT
 
