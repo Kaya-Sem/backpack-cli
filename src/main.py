@@ -9,6 +9,7 @@ from command.delete import delete
 from command.list import list
 from command.remove import remove
 from command.view import view
+from command.import_command import import_lighterpack
 from config import get_database_path
 from initialize_database import create_database_schema
 
@@ -36,6 +37,7 @@ cli.add_command(list)
 cli.add_command(view)
 cli.add_command(create)
 cli.add_command(delete)
+cli.add_command(import_lighterpack)
 
 if __name__ == "__main__":
     cli()
