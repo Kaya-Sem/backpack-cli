@@ -10,6 +10,7 @@ from click_commands.list import list
 from click_commands.remove import remove
 from click_commands.view import view
 from click_commands.import_command import import_lighterpack
+from click_commands.edit import edit
 from config import get_database_path
 from initialize_database import create_database_schema
 
@@ -37,6 +38,7 @@ cli.add_command(list)
 cli.add_command(view)
 cli.add_command(create)
 cli.add_command(delete)
+cli.add_command(edit)
 cli.add_command(import_lighterpack)
 
 if __name__ == "__main__":
