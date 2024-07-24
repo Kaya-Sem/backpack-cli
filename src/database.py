@@ -350,3 +350,21 @@ def get_item_collection_count(item_id: int) -> int:
     conn.close()
 
     return count
+
+
+def update_item(item: Item):
+    conn = Connection()
+
+    conn.cursor.execute(
+        """
+        UPDATE items
+        SET name = ?, weight = ?, note = ?, category = ?
+        WHERE id = ?
+        """,
+        (item.name, item.weight, item.note, item.category, item.id)
+    )
+
+    conn.commit()
+    conn.close()
+
+    rich.print(f"\n[green]Item with ID {item.id} was successfully updated[/green]\n")
