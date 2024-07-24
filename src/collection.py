@@ -42,10 +42,14 @@ def print_collection_view(collection):
 
 
 def print_collection_items(items):
+    max_name_len = max(len(item.name) for item in items)
+    max_note_len = max(len(item.note) for item in items)
+    padding = 10
+
     for item in items:
         formatted_weight = format_weight(item.weight)
-        name = f"[bold]{item.name.ljust(20)}[/bold]"
-        note = f"[italic]{item.note.ljust(40)}[/italic]"
+        name = f"[bold]{item.name.ljust(max_name_len + padding)}[/bold]"
+        note = f"[italic]{item.note.ljust(max_note_len + padding)}[/italic]"
         weight = f"[blue]{formatted_weight}[/blue]"
 
         rich.print(f"{name} {note} {weight}")

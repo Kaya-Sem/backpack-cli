@@ -85,5 +85,5 @@ def generate_pdf_checklist(collection, output_file):
 
 
 if __name__ == "__main__":
-    # Execute the command line interface setup by the click library
+    # Execute the click_commands line interface setup by the click library
     checklist()

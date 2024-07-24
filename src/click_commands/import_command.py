@@ -54,7 +54,7 @@ def import_csv(file_path: str):
     items = parse_csv(file_path)
 
     # Create a new collection named after the file name
-    collection_id = create_collection(file_name, f"Items imported from {file_name}")
+    collection_id = create_collection(file_name, f"Items imported from {file_name} (lighterpack)")
 
     # Create items and add them to the collection
     item_ids = []
@@ -63,7 +63,7 @@ def import_csv(file_path: str):
         item_ids.append(item_id)
 
     add_items_to_collection(collection_id, item_ids)
-    print(f"Imported {len(items)} items from {file_name} and added them to collection {collection_id}.")
+    print(f"\nImported {len(items)} items from {file_name} and added them to collection {collection_id}.")
 
 
 if __name__ == "__main__":

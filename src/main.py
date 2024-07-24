@@ -2,14 +2,14 @@ import os
 
 import click
 
-from command.add import add
-from command.checklist import checklist
-from command.create import create
-from command.delete import delete
-from command.list import list
-from command.remove import remove
-from command.view import view
-from command.import_command import import_lighterpack
+from click_commands.add import add
+from click_commands.checklist import checklist
+from click_commands.create import create
+from click_commands.delete import delete
+from click_commands.list import list
+from click_commands.remove import remove
+from click_commands.view import view
+from click_commands.import_command import import_lighterpack
 from config import get_database_path
 from initialize_database import create_database_schema
 
@@ -29,7 +29,7 @@ def cli():
     initialize_database(db_path)
 
 
-# Register command from command directory
+# Register click_commands from click_commands directory
 cli.add_command(checklist)
 cli.add_command(add)
 cli.add_command(remove)
