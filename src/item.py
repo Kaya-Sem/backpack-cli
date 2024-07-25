@@ -26,8 +26,10 @@ class Item:
 def print_item_view(item: Item):
     label_width = 15
     rich.print(f"\n[bold]{item.name}[/bold]")
-    rich.print(f"[dim]{'note:'.ljust(label_width)}[/dim]  [italic]{item.note}[/italic]")
-    rich.print(f"[dim]{'weight:'.ljust(label_width)}[/dim] {format_weight(item.weight)}")
+    rich.print(f"[dim]{'note:'.ljust(label_width)
+                       }[/dim] [italic]{item.note}[/italic]")
+    rich.print(f"[dim]{'weight:'.ljust(label_width)
+                       }[/dim] {format_weight(item.weight)}")
     rich.print(f"[dim]{'category:'.ljust(label_width)}[/dim] {item.category}")
 
 
