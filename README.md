@@ -33,7 +33,3 @@ To import a csv list from Lighterpack, you can use the command `backpack import-
 Features under development include:
 
     Export to CSV
-
-⚠️ Note
-
-backpack-cli is still in development. Be aware that changes to the database structure or code may affect compatibility in future updates.
