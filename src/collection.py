@@ -23,7 +23,7 @@ def generate_chart(data: List[dict]):
         radius=CHART_RADIUS,
         autocolor=True,
         autocolor_pastel_factor=0.0,
-        legend={"line": 0, "format": "{percent:>5.0f}% {label} {name:<10} "},
+        legend={"line": 0, "format": "{percent:>5.1f}% {label} {name:<10} "},
     )
     return pie
 
@@ -47,7 +47,7 @@ def print_collection_view(collection):
 def print_collection_items(items):
     max_name_len = max(len(item.name) for item in items)
     max_note_len = max(len(item.note) for item in items)
-    padding = 10
+    padding = 5
 
     for item in items:
         formatted_weight = format_weight(item.weight)
