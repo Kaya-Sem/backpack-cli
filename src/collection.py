@@ -3,13 +3,16 @@ import rich
 
 import term_piechart  # https://github.com/va-h/term-piechart
 
+CHART_RADIUS = 4
+
 
 # Format data correctly for piechart -> {"name": name, "value": value}
 def get_pie_data(weights: Dict[str, float]) -> List[dict]:
-    # Determine max length category to determine width.
+    # Determine max length category to determine legend width.
     max_len = max(len(category) for category in weights.keys())
     return [
-        {"name": f"{category.ljust(max_len + 5)} {format_weight(int(weight))}", "value": int(weight)}
+        {"name": f"{category.ljust(
+            max_len + 5)} {format_weight(int(weight))}", "value": int(weight)}
         for category, weight in weights.items()
     ]
 
@@ -17,7 +20,7 @@ def get_pie_data(weights: Dict[str, float]) -> List[dict]:
 def generate_chart(data: List[dict]):
     pie = term_piechart.Pie(
         data,
-        radius=4,
+        radius=CHART_RADIUS,
         autocolor=True,
         autocolor_pastel_factor=0.0,
         legend={"line": 0, "format": "{percent:>5.0f}% {label} {name:<10} "},
@@ -69,11 +72,17 @@ class Collection:
         self.items = items
 
     def get_category_weights(self) -> Dict[str, float]:
-        return {category: sum(item.weight for item in item_list) for category, item_list in self.items.items()}
+        return {category: sum(item.weight for item in item_list)
+                for category, item_list in self.items.items()}
 
     def get_total_weight(self) -> int:
         return sum(sum(item.weight for item in item_list) for _, item_list in
                    self.items.items())
+
+
+def print_collection(collection: Collection):
+    print(f"\n{collection.name}")
+    rich.print(f"[italic]{collection.description}[/italic]\n")
 
 
 def print_collections(collections: List[Collection]):

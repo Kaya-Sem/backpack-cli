@@ -81,9 +81,11 @@ def get_collections() -> List[Collection]:
 
     for collection_row in collections_rows:
         collection_id, name, description = collection_row
-        items_by_category: Dict[str, List[Item]] = get_collection_items(collection_id)
+        items_by_category: Dict[str, List[Item]
+                                ] = get_collection_items(collection_id)
 
-        collection = Collection(collection_id, name, description, items_by_category)
+        collection = Collection(collection_id, name,
+                                description, items_by_category)
         collections.append(collection)
 
     conn.close()
@@ -94,7 +96,8 @@ def create_collection(name: str, description: str) -> int:
     conn = Connection()
 
     conn.cursor.execute(
-        "INSERT INTO collections (name, description) VALUES (?, ?)", (name, description)
+        "INSERT INTO collections (name, description) VALUES (?, ?)", (name,
+                                                                      description)
     )
 
     collection_id = conn.cursor.lastrowid
@@ -162,7 +165,8 @@ def get_collection_items_as_list(collection_id: int) -> List[Item]:
     )
 
     items_rows = conn.cursor.fetchall()
-    items = [Item(item_id, name, weight, note, category) for item_id, name, weight, note, category in items_rows]
+    items = [Item(item_id, name, weight, note, category)
+             for item_id, name, weight, note, category in items_rows]
 
     conn.close()
 
@@ -197,10 +201,12 @@ def remove_items_from_collection(collection_id: int, item_ids: List[int]):
 
     if removed_count > 0:
         rich.print(
-            f"\n[green]{removed_count} item(s) removed from collection [italic]{collection_id}[/italic] "
+            f"\n[green]{removed_count} item(s) removed from collection [italic]{
+                collection_id}[/italic] "
             f"successfully![/green]")
     if skipped_count > 0:
-        rich.print(f"\n[yellow]{skipped_count} item(s) were not in the collection and were skipped.[/yellow]\n")
+        rich.print(f"\n[yellow]{
+                   skipped_count} item(s) were not in the collection and were skipped.[/yellow]\n")
 
 
 def add_items_to_collection(collection_id: int, item_ids: List[int]):
@@ -237,7 +243,8 @@ def add_items_to_collection(collection_id: int, item_ids: List[int]):
         rich.print(
             f"\n[green]{added_count} item(s) added to collection [italic]{collection_id}[/italic] successfully![/green]")
     if skipped_count > 0:
-        rich.print(f"\n[yellow]{skipped_count} item(s) were already in the collection and were skipped.[/yellow]\n")
+        rich.print(f"\n[yellow]{
+                   skipped_count} item(s) were already in the collection and were skipped.[/yellow]\n")
 
 
 def delete_item(item_id: int):
@@ -256,7 +263,8 @@ def delete_item(item_id: int):
     conn.commit()
     conn.close()
 
-    rich.print(f"\n[green]Item with ID {item_id} was succesfully removed[/green]\n")
+    rich.print(f"\n[green]Item with ID {
+               item_id} was succesfully removed[/green]\n")
 
 
 def delete_collection(collection_id: int):
@@ -264,7 +272,8 @@ def delete_collection(collection_id: int):
 
     # remove items from collection
     conn.cursor.execute(
-        "DELETE FROM collection_items WHERE collection_id = ?", (collection_id,)
+        "DELETE FROM collection_items WHERE collection_id = ?", (
+            collection_id,)
     )
 
     conn.cursor.execute(
@@ -285,7 +294,8 @@ def get_categories() -> List[str]:
 
 
 def handle_interactive_add():
-    rich.print(f"\n[underline]Choose a collection to add items to:[/underline]\n")
+    rich.print(
+        f"\n[underline]Choose a collection to add items to:[/underline]\n")
 
     collections = get_collections()
     print_collections(collections)
@@ -294,7 +304,8 @@ def handle_interactive_add():
     collection_id = click.prompt("Collection ID", type=int)
 
     items = get_items()
-    rich.print(f"\n[underline]Choose items to add to a collection:[/underline]\n")
+    rich.print(
+        f"\n[underline]Choose items to add to a collection:[/underline]\n")
     print_items(items)
 
     rich.print(f"\nSeparate IDs with spaces")
@@ -304,7 +315,8 @@ def handle_interactive_add():
     try:
         item_ids = [int(item_id) for item_id in response.split()]
     except ValueError:
-        print(f"\n[red]Invalid input. Please enter numbers separated by spaces.[/red]\n")
+        print(
+            f"\n[red]Invalid input. Please enter numbers separated by spaces.[/red]\n")
         return
 
     add_items_to_collection(collection_id, item_ids)
@@ -312,7 +324,8 @@ def handle_interactive_add():
 
 #  TODO: check if there's actually any items in the collection
 def handle_interactive_remove():
-    rich.print(f"\n[underline]Choose a collection to remove items from:[/underline]\n")
+    rich.print(
+        f"\n[underline]Choose a collection to remove items from:[/underline]\n")
 
     collections = get_collections()
     print_collections(collections)
@@ -322,7 +335,8 @@ def handle_interactive_remove():
     collection_id = click.prompt("Collection ID", type=int)
     print()
 
-    rich.print(f"\n[underline]Choose items to add to a collection:[/underline]\n")
+    rich.print(
+        f"\n[underline]Choose items to add to a collection:[/underline]\n")
     items = get_collection_items_as_list(collection_id)
     print_items(items)
 
@@ -333,7 +347,8 @@ def handle_interactive_remove():
     try:
         item_ids = [int(item_id) for item_id in response.split()]
     except ValueError:
-        rich.print(f"\n[red]Invalid input. Please enter numbers separated by spaces.[/red]\n")
+        rich.print(
+            f"\n[red]Invalid input. Please enter numbers separated by spaces.[/red]\n")
         return
 
     remove_items_from_collection(collection_id, item_ids)
@@ -352,6 +367,24 @@ def get_item_collection_count(item_id: int) -> int:
     return count
 
 
+def update_collection(collection: Collection):
+    conn = Connection()
+    conn.cursor.execute(
+        """
+        UPDATE collections
+        SET name = ?, description = ?
+        WHERE id = ?
+        """,
+        (collection.name, collection.description, collection.id),
+    )
+
+    conn.commit()
+    conn.close()
+
+    rich.print(f"\n[green]Collection with ID {
+               collection.id} was succesfully updated[/green]")
+
+
 def update_item(item: Item):
     conn = Connection()
 
@@ -367,4 +400,5 @@ def update_item(item: Item):
     conn.commit()
     conn.close()
 
-    rich.print(f"\n[green]Item with ID {item.id} was successfully updated[/green]\n")
+    rich.print(f"\n[green]Item with ID {
+               item.id} was successfully updated[/green]\n")
