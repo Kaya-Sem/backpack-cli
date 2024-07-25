@@ -12,7 +12,7 @@ from database import get_collection
 def checklist(collection_id, output_file, pdf):
     """
     Export a collection of items as a markdown checklist or PDF.
-    
+
     COLLECTION_ID: The ID of the collection to export.
     OUTPUT_FILE: The file to write the checklist to.
     --pdf: Creates a PDF checklist instead of a markdown checklist.
@@ -23,11 +23,13 @@ def checklist(collection_id, output_file, pdf):
             markdown_content = generate_markdown_checklist(collection)
             with open(output_file, 'w') as file:
                 file.write(markdown_content)
-            click.echo(f"Collection {collection_id} exported to {output_file} as markdown successfully.")
+            click.echo(f"Collection {collection_id} exported to {
+                       output_file} as markdown successfully.")
         else:
             # Generate PDF format checklist and save it to the specified file
             generate_pdf_checklist(collection, output_file)
-            click.echo(f"Collection {collection_id} exported to {output_file} as PDF successfully.")
+            click.echo(f"Collection {collection_id} exported to {
+                       output_file} as PDF successfully.")
     except Exception as e:
         click.echo(f"An error occurred: {e}")
 
@@ -85,5 +87,4 @@ def generate_pdf_checklist(collection, output_file):
 
 
 if __name__ == "__main__":
-    # Execute the click_commands line interface setup by the click library
-    checklist()
+    pass
