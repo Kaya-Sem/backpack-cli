@@ -21,7 +21,7 @@ class Connection:
 
 
 def get_items() -> List[Item]:
-    conn = Connection()
+    conn = Connection() # not
     conn.cursor.execute("SELECT id, name, weight, note, category FROM items")
     items = []
 
