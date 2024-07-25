@@ -16,7 +16,7 @@ from initialize_database import create_database_schema
 
 
 def initialize_database(db_path):
-    """Initialize the database with the required schema if it does not exist."""
+    """Initialize the database with the schema if it does not exist."""
     if not os.path.exists(db_path):
         create_database_schema(db_path)
 
