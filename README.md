@@ -7,17 +7,16 @@ backpack-cli is a command-line tool designed for managing and organizing your co
 ## Downloading
 I cannot provide binaries as of yet. Please download the repository and use in-folder with python.
 
-## USAGE
+## Usage
 
 Whenever you run the program, it will look for the database at `XDG_CONFIG_HOME/backpack-cli/`. It will be created if it is not found.
 
-With backpack-cli, you can easily interact with your database using the following commands:
 
-For detailed usage, refer to [Command Line Usage](https://github.com/Kaya-Sem/backpack-cli/wiki/Command-Line-Usage)
-
+For detailed command line usage, refer to [Command Line Usage](https://github.com/Kaya-Sem/backpack-cli/wiki/Command-Line-Usage)
 
 
-## IMPORT
+
+## Import
 
 To import a csv list from Lighterpack, you can use the command `backpack import-lighterpack [path/to/file]`. This command will do the following:
 
