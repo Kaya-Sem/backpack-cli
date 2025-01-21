@@ -1,10 +1,6 @@
 # backpack-cli
 
 
-
-Windows not officially supported! That shit ain't minimal,
-efficient! Nor has it the correct superiority complex!
-
 "Windows?" Not supported. That bloated mess isn’t minimal, efficient, or worthy. Linux only—because we ought to have a superiority complex.
 
 ### Roadmap
