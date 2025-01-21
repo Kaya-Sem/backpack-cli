@@ -1,7 +1,5 @@
 # backpack-cli
 
-C-powered TUI for organising your gear loadouts
-
 
 
 Windows not officially supported! That shit ain't minimal,
