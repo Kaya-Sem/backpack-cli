@@ -5,6 +5,12 @@
 Windows not officially supported! That shit ain't minimal,
 efficient! Nor has it the correct superiority complex!
 
+### Roadmap
+
+- [ ] displaying selected loadouts
+- [ ] cloud syncronisation
+- [ ] config based setup
+
 
 ### Acknowledgements
 
