@@ -1,8 +1,12 @@
 #include "../libs/WiTUI/include/wi_tui.h"
+#include <asm-generic/ioctls.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
 
 bool FULLSCREEN = 1;
 
@@ -18,12 +22,16 @@ int main() {
   /* gear list window*/
   wi_window *loadout_window = wi_make_window();
 
+  struct winsize w;
+  ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+
   printf("populating list");
   loadout_window->cursor_rendering = LINEBASED;
   loadout_window->width = 30;
   loadout_window->border.title = " Gear Loadouts ";
   loadout_window->border.title_alignment = RIGHT;
   loadout_window->border.footer = " footer ";
+  loadout_window->height = w.ws_row - 3;
 
   /* detailed gear window view*/
   wi_window *detailed_gear_list = wi_make_window();
