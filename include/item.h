@@ -1,14 +1,19 @@
+#ifndef ITEM_H
+#define ITEM_H
+
 typedef struct {
-  char *name;
-  char *description;
-  char *category;
+  const char *name;
+  const char *description;
+  const char *category;
 
   int weight; // in grams
 
-  bool is_worn;
-  bool is_favourite;
-  bool is_water;
-  bool is_food;
+  int is_worn;
+  int is_favourite;
+  int is_water;
+  int is_food;
 } item;
 
+item *create_item(const char *name, const char *description, const char* category, int weight);
 
+#endif // !ITEM_H
