@@ -14,6 +14,7 @@ typedef struct {
   int is_food;
 } item;
 
-item *create_item(const char *name, const char *description, const char* category, int weight);
+item *create_item(const char *name, const char *description,
+                  const char *category, unsigned int weight);
 
 #endif // !ITEM_H

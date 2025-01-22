@@ -1,6 +1,7 @@
 CC = gcc
-SRC = src/main.c $(wildcard libs/WiTUI/src/*.c)
-INCLUDES = -Ilibs/WiTUI/include -Ilibs/WiTUI/submodules/WiTesting
+CFLAGS = 
+SRC = $(wildcard *.c) $(wildcard libs/WiTUI/src/*.c)
+INCLUDES = -I. -Ilibs/WiTUI/include -Ilibs/WiTUI/submodules/WiTesting
 OBJ = $(SRC:.c=.o)
 OUT = build/app
 
@@ -8,13 +9,13 @@ OUT = build/app
 all: $(OUT)
 
 $(OUT): $(OBJ)
-	$(CC) $(OBJ) $(INCLUDES) -o $(OUT)
+	$(CC) $(CFLAGS) $(OBJ) $(INCLUDES) -o $(OUT)
 
 %.o: %.c
-	$(CC) -c $< $(INCLUDES) -o $@
+	$(CC) $(CFLAGS) -c $< $(INCLUDES) -o $@
 
 clean:
 	rm -f $(OBJ) $(OUT)
 
-.PHONY: all clean
+# .PHONY: all clean
 
