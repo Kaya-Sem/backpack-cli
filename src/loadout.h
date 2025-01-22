@@ -14,9 +14,9 @@ typedef struct {
 } loadout;
 
 loadout *create_loadout(const char *name, const char *description,
-                        const char icon, size_t item_count);
+                        const char icon);
 
-int add_item_to_loadout(loadout *loadout, const item *item);
+int add_item_to_loadout(loadout *loadout, item *item);
 
 int double_item_array(loadout *loadout);
 

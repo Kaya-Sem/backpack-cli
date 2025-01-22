@@ -1,8 +1,8 @@
-#include "../include/item.h"
+#include "item.h"
 #include <stdlib.h>
 
 item *create_item(const char *name, const char *description,
-                  const char *category, int weight) {
+                  const char *category, unsigned int weight) {
   item *i = (item *)malloc(sizeof(item));
 
   i->name = name;

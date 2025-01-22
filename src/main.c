@@ -1,6 +1,6 @@
+#include "../libs/WiTUI/include/wi_tui.h"
 #include "item.h"
 #include "loadout.h"
-#include "../libs/WiTUI/include/wi_tui.h"
 #include <asm-generic/ioctls.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -13,17 +13,19 @@ bool FULLSCREEN = 1;
 
 unsigned int get_shell_height();
 void start_tui(loadout *loadouts, unsigned long amount_loadouts);
-void populate_loadout_list(wi_window *loadout_window, loadout* loadouts,
+void populate_loadout_list(wi_window *loadout_window, loadout *loadouts,
                            int items_size);
 
 int main() {
 
-  loadout *loadouts = NULL;
-
-  loadout *loadout1 = create_loadout("Kungsleden", "mooi zweden", 'h', 1);
+  loadout *loadout1 = create_loadout("Kungsleden", "mooi zweden", 'h');
   item *item1 = create_item("my item", "my_description", "shelter", 100);
 
-  start_tui(loadout *loadouts, 5);
+ // add_item_to_loadout(loadout1, item1);
+
+  loadout loadouts[5] = {*loadout1};
+
+  start_tui(loadouts, 5);
 
   return 0;
 }
@@ -64,13 +66,15 @@ unsigned int get_shell_height() {
   return w.ws_row;
 }
 
+
+
 void populate_loadout_list(wi_window *loadout_window, loadout *loadouts,
                            int items_size) {
 
   // Calculate the total size needed
   size_t total_length = 1; // 1 for the null terminator
   for (int i = 0; i < items_size; i++) {
-    total_length += sizeof(loadouts[i]) + 1; // Add 1 for the newline or separator
+    total_length += strlen(loadouts[i].name) + 1; // Add 1 for the newline
   }
 
   // Allocate memory for the resulting string
@@ -91,3 +95,4 @@ void populate_loadout_list(wi_window *loadout_window, loadout *loadouts,
 
   free(window_string);
 }
+
